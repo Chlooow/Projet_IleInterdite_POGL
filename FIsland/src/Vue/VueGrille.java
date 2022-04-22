@@ -17,7 +17,6 @@ class VueGrille extends JPanel implements Observer {
     private final static int taille = 12;
 
     // Constructeur
-
     // TODO
     public VueGrille(CModele modele) {
         super(new GridLayout(6, 6));
@@ -42,7 +41,6 @@ class VueGrille extends JPanel implements Observer {
     //public void update() { repaint();}
 
     // Getters & Setter
-
 
     public static int getTaille() {
         return taille;

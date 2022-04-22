@@ -23,6 +23,26 @@ public class VueCommandes extends JPanel {
         JButton finDeTour = new JButton("Fin de Tour");
         this.add(finDeTour);
 
+        // Bouton d'assèchement
+        JButton dry = new JButton(" dry case ");
+
+        /*dry.addActionListener((ActionEvent e) -> {
+            // Action quand le bouton assecher est cliqué
+            // TODO
+            //asseche();
+        };*/
+        this.add(dry);
+
+        // Bouton recuperation
+        JButton recup = new JButton(" Recuperer ");
+
+        /*recup.addActionListener((ActionEvent e) -> {
+            // Action quand le bouton recuperer est cliqué
+            // TODO
+            //recuperer();
+        };*/
+        this.add(recup);
+
         // Bouton de deplacements
         JButton right = new JButton("right");
         JButton left = new JButton("left");
@@ -54,7 +74,7 @@ public class VueCommandes extends JPanel {
         this.add(up);
         this.add(down);
 
-        // Ajouter un actionListener aux bouton
+        // Ajouter un actionListener aux boutons
         Controleur ctrl = new Controleur(modele);
         finDeTour.addActionListener(ctrl);
     }

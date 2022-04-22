@@ -11,14 +11,15 @@ public class Joueur {
     private CModele modele;
     private ArrayList<Inventaire> invJoueur;
     private int idJoueur;
+    private int id;
     private Color couleur;
     private Case position;
     private int actions;
 
     // Constructeur
-    public Joueur(String nom, int id, Color c, Case cas) {
+    public Joueur(String nom, Color c, Case cas) {
         this.couleur = c;
-        this.idJoueur = id;
+        this.id = idJoueur++;
         this.nomJoueur = nom;
         this.position = cas; // il faut l'initialiser au même stade de que l'heliport
         this.invJoueur = new ArrayList<Inventaire>();
@@ -93,9 +94,6 @@ public class Joueur {
 
     // Methodes
 
-    // Deplacer personnage
-
-
     // add cle
     /*public ArrayList<Inventaire> addKeyInInv(Cle keys) {
 
@@ -114,15 +112,11 @@ public class Joueur {
     }*/
 
     // Actions à effectuer
-
     public void actionsJoueur() {
         this.actions = this.actions + 1;
     }
 
     // Assecher une case
 
-    /*public void asseche(Case cas){
-        if(getPositionX()).equals(cas.get)
-    }*/
 
 }

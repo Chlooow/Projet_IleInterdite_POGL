@@ -41,7 +41,8 @@ public class Case extends JLabel {
     public void setEtat(WaterState state){ this.etat = state; }
 
 
-    // Methode
+    // Methodes
+
     public void etatSuivant(WaterState etat){
         switch (etat) {
             case Normal -> nextState = WaterState.Flooded;
@@ -50,6 +51,7 @@ public class Case extends JLabel {
         }
     }
 
+    /** methode qui innonde */
     public void innonde() {
         if (etat == WaterState.Normal) {
             etat = WaterState.Flooded;
@@ -60,26 +62,36 @@ public class Case extends JLabel {
         this.draw(Couleurs.fromState(etat));
     }
 
+    /** methode qui asseche */
     public void asseche() {
         if (etat != WaterState.Submerged) {
             etat = WaterState.Normal;
         }
-
         this.draw(Couleurs.fromState(etat));
     }
 
-
+    /** ajouter un joueur */
     public void ajouteJoueur(Joueur j) {
         if (!joueurs.contains(j)) {
             joueurs.add(j);
         }
     }
 
+    /** enlever un joueur */
     public void removeJoueur(Joueur j) {
         joueurs.remove(j);
     }
 
+    /** ajouter un artefact de la case */
+    /*public void ajouteArtefact(ElementArtefact a) {
+            this.add(a);
+    }*/
 
+    /** remove un artefact de la case */
+
+
+
+    /** draw*/
     public void draw() {
         BufferedImage img = new BufferedImage(width, height, Image.SCALE_DEFAULT);
         Graphics2D graphics = img.createGraphics();
@@ -99,8 +111,5 @@ public class Case extends JLabel {
         this.color = newColor;
         draw();
     }
-
-
-    //protected void Random
 
 }

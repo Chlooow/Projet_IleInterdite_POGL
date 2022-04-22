@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
 
+import static Modele.Cles.CLEAIR;
 import static Modele.WaterState.Submerged;
 
 public class CModele extends Observable {
@@ -16,8 +17,10 @@ public class CModele extends Observable {
     private Case[][] island;
     //private ArrayList<Joueur> players;
     private Joueur player;
-
+    private Heliport helicoptere;
     private Color color;
+    //private ArrayList<Cles> keys;
+    private Cles key;
 
     // Constructeur
 
@@ -33,7 +36,27 @@ public class CModele extends Observable {
         int randomX = random.nextInt(largeur);
         int randomY = random.nextInt(hauteur);
         Case aCase = island[randomX][randomY];
-        this.player = new Joueur("BigBoss", 1, Color.getHSBColor(0, 0, 0), aCase);
+        
+        // TODO : je pense qu'il faut faire un input pour laisser le
+        // le joueur choisir son pseudo?
+
+        /* Scanner input = new Scanner(System.in);
+         System.out.print("Choisissez des pseudos pour les personnages : ");
+         String pseudo = scanner.nextLine();
+         */
+
+        // joueur
+        // Attention ici, je crois que j'ai fais une erreur quand tu vas ajouter les personnage, car il faut que
+        // le joueur choisisse son propre nom et il faut que l'id change en fonction du joueur et sa place
+        // dans le tableau de jouer
+        this.player = new Joueur("BigBoss", Color.getHSBColor(0, 0, 0), aCase);
+
+        // Heliport
+        //
+        this.helicoptere = new Heliport(aCase);
+
+        // Artefact
+        this.key = CLEAIR;
     }
 
     // Getter & Setter
@@ -46,6 +69,8 @@ public class CModele extends Observable {
     }
 
     // Methode
+    /** Innonder une case aleatoirement */
+
     public void randomFlood(CModele modele) {
         Random random = new Random();
         int randomIndex_x = random.nextInt(modele.largeur);
@@ -54,18 +79,25 @@ public class CModele extends Observable {
         aCase.innonde();
     }
 
+    /** Assecher une case sur lequel le personnage est ou adjacant */
+
+    /*public void assecheFlood(CModele modele) {
+        assecher();
+    }*/
+
+
     // Is Player on the field
     /*public boolean isAlive(ArrayList<Joueur> j, Case cas) {
     }*/
 
-/*protected int compteVoisines(int x, int y) {
+    /* protected int compteVoisines(int x, int y) {
         int res=0;
         for(int i=x-1; i<=x+1; i++) {
         for(int j=y-1; j<=y+1; j++) {
-        if (cellules[i][j].etat) { res++; }
+        if (island[i][j].etat) { res++; }
         }
         }
-        return (res - ((cellules[x][y].etat)?1:0));*/
+        return (res - ((island[x][y].etat)?1:0)); */
 
     /**
      * Renvoie une liste contenant les cases voisines disponibles pour un déplacement
