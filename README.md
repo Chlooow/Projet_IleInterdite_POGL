@@ -12,4 +12,4 @@ l’eau suffisamment longtemps pour recuperer quatre artefacts
 et s’echapper en helicoptere avant l’ineluctable et imminente
 disparition des derniers vestiges de l’Ile.
 
-Codimd : https://codimd.math.cnrs.fr/LwGgP6EEQIqMHyL6diCpMQ
+Codimd pour les échanges écris entre moi et Cheima : https://codimd.math.cnrs.fr/LwGgP6EEQIqMHyL6diCpMQ
