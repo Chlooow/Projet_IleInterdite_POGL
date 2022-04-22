@@ -1,5 +1,5 @@
 # IleInterditeV2
-Github pour le rendu (sans les brouillons)
+Github pour le rendu (sans les brouillons plus propre)
 
 Projet "L'île Interdite" de POGL
 Ce projet de programmation vous invite a construire
