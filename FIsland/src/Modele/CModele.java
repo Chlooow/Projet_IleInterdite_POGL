@@ -91,6 +91,18 @@ public class CModele extends Observable {
     }*/
 
     // Methode
+    /** assecher une case voulu */
+    public void sacDeSable(Case c){
+        if (c.getEtat() != WaterState.Submerged) {
+            getCase(c.getX(), c.getY());
+            c.asseche();
+            System.out.print(" Assechement avec succes");
+        } else {
+            System.out.print(" Pas possible d'assecher cette case, réessayez");
+        }
+    }
+
+
     /** Innonder une case aleatoirement */
     public void randomFlood(CModele modele) {
         Random random = new Random();

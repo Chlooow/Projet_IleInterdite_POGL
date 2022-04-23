@@ -76,8 +76,12 @@ public class Case extends JLabel {
     public void asseche() {
         if (etat != WaterState.Submerged) {
             etat = WaterState.Normal;
+            this.draw(Couleurs.fromState(etat));
+        } else if(etat == WaterState.Submerged) {
+            System.out.print(" Vous ne pouvez pas assecher cette Case ");
+        } else if (etat == WaterState.Normal) {
+            System.out.print("Case déjà sec ");
         }
-        this.draw(Couleurs.fromState(etat));
     }
 
     /** ajouter un joueur */
@@ -92,10 +96,6 @@ public class Case extends JLabel {
         joueurs.remove(j);
     }
 
-    /** ajouter un artefact de la case */
-    /* public void ajouteArtefact(Case c) {
-        this.draw(Couleurs.COLOR_AIR);
-    } */
 
     /** remove un artefact de la case */
     //public void

@@ -2,8 +2,10 @@ package Vue;
 
 import Controleur.Controleur;
 import Modele.CModele;
+import Modele.Case;
 
 import java.awt.event.*;
+import java.util.Scanner;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicArrowButton;
@@ -25,7 +27,6 @@ public class VueCommandes extends JPanel {
 
         // Bouton d'assèchement
         JButton dry = new JButton(" dry case ");
-
         /*dry.addActionListener((ActionEvent e) -> {
             // Action quand le bouton assecher est cliqué
             // TODO
@@ -42,6 +43,21 @@ public class VueCommandes extends JPanel {
             //recuperer();
         };*/
         this.add(recup);
+
+        // Bouton de Sac de sable
+        JButton sacDeSable = new JButton("Sac de Sable");
+        sacDeSable.addActionListener((ActionEvent e) -> {
+            // Action quand le bouton asseche une zone voulu est cliqué
+            // TODO
+            Scanner input = new Scanner(System.in);
+            System.out.print("Choisissez un x : ");
+            int casX = input.nextInt();
+            System.out.print("Choisissez un y : ");
+            int casY = input.nextInt();
+            Case cas1 = modele.getCase(casX, casY);
+            modele.sacDeSable(cas1);
+        });
+        this.add(sacDeSable);
 
         // Bouton de deplacements
         JButton right = new JButton("right");

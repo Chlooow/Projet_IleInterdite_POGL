@@ -11,6 +11,8 @@ public class Main {
 
             CModele modele = new CModele();
             CVue vue = new CVue(modele);
+            Music mus = new Music();
+            mus.jouerEnBoucle();
         });
     }
 
