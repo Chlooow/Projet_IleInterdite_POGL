@@ -40,6 +40,14 @@ public class Case extends JLabel {
     public WaterState getEtat() { return etat; }
     public void setEtat(WaterState state){ this.etat = state; }
 
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 
     // Methodes
 
@@ -83,12 +91,12 @@ public class Case extends JLabel {
     }
 
     /** ajouter un artefact de la case */
-    /*public void ajouteArtefact(ElementArtefact a) {
-            this.add(a);
-    }*/
+    /* public void ajouteArtefact(Case c) {
+        this.draw(Couleurs.COLOR_AIR);
+    } */
 
     /** remove un artefact de la case */
-
+    //public void
 
 
     /** draw*/
@@ -106,10 +114,8 @@ public class Case extends JLabel {
         this.setIcon(new ImageIcon(img));
     }
 
-
     public void draw(Color newColor) {
         this.color = newColor;
         draw();
     }
-
 }

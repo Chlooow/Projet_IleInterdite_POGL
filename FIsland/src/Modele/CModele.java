@@ -1,13 +1,12 @@
 package Modele;
 
 import java.awt.*;
-import java.lang.reflect.Array;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
 
 import static Modele.Cles.CLEAIR;
-import static Modele.WaterState.Submerged;
 
 public class CModele extends Observable {
 
@@ -17,10 +16,10 @@ public class CModele extends Observable {
     private Case[][] island;
     //private ArrayList<Joueur> players;
     private Joueur player;
-    private Heliport helicoptere;
     private Color color;
     //private ArrayList<Cles> keys;
     private Cles key;
+    private boolean helicopter;
 
     // Constructeur
 
@@ -31,11 +30,6 @@ public class CModele extends Observable {
                 island[colonne][ligne] = new Case(this, 60, 60);
             }
         }
-        // TODO
-        Random random = new Random();
-        int randomX = random.nextInt(largeur);
-        int randomY = random.nextInt(hauteur);
-        Case aCase = island[randomX][randomY];
         
         // TODO : je pense qu'il faut faire un input pour laisser le
         // le joueur choisir son pseudo?
@@ -49,14 +43,18 @@ public class CModele extends Observable {
         // Attention ici, je crois que j'ai fais une erreur quand tu vas ajouter les personnage, car il faut que
         // le joueur choisisse son propre nom et il faut que l'id change en fonction du joueur et sa place
         // dans le tableau de jouer
-        this.player = new Joueur("BigBoss", Color.getHSBColor(0, 0, 0), aCase);
+        //this.player = new Joueur("BigBoss", Color.getHSBColor(0, 0, 0), aCase);
 
         // Heliport
-        //
-        this.helicoptere = new Heliport(aCase);
+        this.helicopter = true;
+        this.randomCase().draw(Couleurs.COLOR_Heli);
 
         // Artefact
-        this.key = CLEAIR;
+        this.setArtefact();
+
+        // Cles
+        this.setKey();
+
     }
 
     // Getter & Setter
@@ -66,6 +64,25 @@ public class CModele extends Observable {
 
     public Case[][] getCase() {
         return island;
+    }
+
+    public Cles getKey() {
+        return key;
+    }
+
+    /** mettre les artefacts */
+    public void setArtefact(){
+        this.randomCase().draw(Couleurs.COLOR_TERRE);
+        this.randomCase().draw(Couleurs.COLOR_AIR);
+        this.randomCase().draw(Couleurs.COLOR_FEU);
+        this.randomCase().draw(Couleurs.COLOR_EAU);
+    }
+    /** mettre les cles */
+    public void setKey() {
+        this.randomCase().draw(Couleurs.COLOR_TERRE_KEY);
+        this.randomCase().draw(Couleurs.COLOR_AIR_KEY);
+        this.randomCase().draw(Couleurs.COLOR_FEU_KEY);
+        this.randomCase().draw(Couleurs.COLOR_EAU_KEY);
     }
 
     // Methode
@@ -79,11 +96,14 @@ public class CModele extends Observable {
         aCase.innonde();
     }
 
-    /** Assecher une case sur lequel le personnage est ou adjacant */
+    public Case randomCase() {
+        Random random = new Random();
+        int randomIndex_x = random.nextInt(this.largeur);
+        int randomIndex_y = random.nextInt(this.hauteur);
+        return island[randomIndex_x][randomIndex_y];
+    }
 
-    /*public void assecheFlood(CModele modele) {
-        assecher();
-    }*/
+    /** Assecher une case sur lequel le personnage est ou adjacant */
 
 
     // Is Player on the field

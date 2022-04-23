@@ -2,6 +2,7 @@ package Vue;
 
 import Modele.CModele;
 import Modele.Case;
+import Modele.Cles;
 import Modele.WaterState;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.util.Observer;
 
 class VueGrille extends JPanel implements Observer {
 
+    //private final Cles cles;
     // Attribut
     private CModele modele;
     private final static int taille = 12;
@@ -25,9 +27,6 @@ class VueGrille extends JPanel implements Observer {
         Dimension dim = new Dimension(taille * CModele.largeur,
                 taille * CModele.hauteur);
         this.setPreferredSize(dim);
-
-        // Création des cases
-        // ajouteElement(cases)
 
         Case[][] cases = modele.getCase();
 
