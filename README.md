@@ -22,6 +22,7 @@ Pour cela, nous avons décidé de nous mettre en binôme et ainsi répartir le t
 ## Repartition
 
 **Chloe** : Partie 0 (creation d'un squelette cohérent), Partie 1, un peu de la partie 3 et 4
+
 **Cheima** : Partie 2, Partie 3, UML
 
 ## Outils utilisés
