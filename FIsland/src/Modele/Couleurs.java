@@ -18,11 +18,11 @@ public class Couleurs {
     public static final Color COLOR_AIR = Color.GRAY;
     public static final Color COLOR_EAU = new Color(51, 153, 255);
 
-    // couleurs des cles
-    public static final Color COLOR_FEU_KEY = new Color(245,174,174);
-    public static final Color COLOR_TERRE_KEY = new Color(178, 255, 102);
-    public static final Color COLOR_AIR_KEY = Color.LIGHT_GRAY;
-    public static final Color COLOR_EAU_KEY = new Color(174, 245, 242);
+    // couleurs des zones special
+    public static final Color COLOR_ZONE_FEU = new Color(245,174,174);
+    public static final Color COLOR_ZONE_TERRE = new Color(178, 255, 102);
+    public static final Color COLOR_ZONE_AIR = Color.LIGHT_GRAY;
+    public static final Color COLOR_ZONE_EAU = new Color(174, 245, 242);
 
     // couleurs de l'heliport
     public static final Color COLOR_Heli = Color.black;

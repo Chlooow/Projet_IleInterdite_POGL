@@ -1,12 +1,16 @@
 package Modele;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import static Modele.Cles.*;
 
 public class Inventaire {
 
     // Attribut
     private ArrayList<ElementArtefact> artefacts;
     private ArrayList<Cles> cles;
+    private CModele modele;
 
     // Constructeur
     public Inventaire(){
@@ -21,11 +25,9 @@ public class Inventaire {
     public ArrayList<ElementArtefact> getArtefacts() {
         return artefacts;
     }
-    // Methodes
 
-    public void ajouterCle(Cles key){
-        this.cles.add(key);
-    }
+
+    // Methodes
 
     public void ajouterArtefact(ElementArtefact arte) {
         this.artefacts.add(arte);
@@ -45,4 +47,8 @@ public class Inventaire {
     }
 
 
+    public ArrayList<Cles> addKey(Cles k) {
+        this.cles.add(k);
+        return cles;
+    }
 }

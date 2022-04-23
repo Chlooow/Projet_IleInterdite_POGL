@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
 
-import static Modele.Cles.CLEAIR;
+import static Modele.Cles.*;
+import static Modele.Cles.CLETERRE;
+
+//import static Modele.Cles.CLEAIR;
 
 public class CModele extends Observable {
 
@@ -17,8 +20,8 @@ public class CModele extends Observable {
     //private ArrayList<Joueur> players;
     private Joueur player;
     private Color color;
-    //private ArrayList<Cles> keys;
-    private Cles key;
+    private Inventaire keys;
+    //private Cles key;
     private boolean helicopter;
 
     // Constructeur
@@ -53,7 +56,9 @@ public class CModele extends Observable {
         this.setArtefact();
 
         // Cles
-        this.setKey();
+        //this.setKey();
+        // Ici je me suis trompé, les clés ne sont pas sur le plateau de jeu c'est quand on clique
+        this.keys = new Inventaire();
 
     }
 
@@ -66,9 +71,9 @@ public class CModele extends Observable {
         return island;
     }
 
-    public Cles getKey() {
+    /*public Cles getKey() {
         return key;
-    }
+    }*/
 
     /** mettre les artefacts */
     public void setArtefact(){
@@ -78,29 +83,78 @@ public class CModele extends Observable {
         this.randomCase().draw(Couleurs.COLOR_EAU);
     }
     /** mettre les cles */
-    public void setKey() {
+    /*public void setKey() {
         this.randomCase().draw(Couleurs.COLOR_TERRE_KEY);
         this.randomCase().draw(Couleurs.COLOR_AIR_KEY);
         this.randomCase().draw(Couleurs.COLOR_FEU_KEY);
         this.randomCase().draw(Couleurs.COLOR_EAU_KEY);
-    }
+    }*/
 
     // Methode
     /** Innonder une case aleatoirement */
-
     public void randomFlood(CModele modele) {
         Random random = new Random();
         int randomIndex_x = random.nextInt(modele.largeur);
         int randomIndex_y = random.nextInt(modele.hauteur);
         Case aCase = island[randomIndex_x][randomIndex_y];
         aCase.innonde();
+        notifyObservers();
     }
 
+    /** choisis une case au hasard*/
     public Case randomCase() {
         Random random = new Random();
         int randomIndex_x = random.nextInt(this.largeur);
         int randomIndex_y = random.nextInt(this.hauteur);
         return island[randomIndex_x][randomIndex_y];
+    }
+
+    /** genere un nombre au hasard entre deux bornes
+     *
+     * @param borneInf
+     * @param borneSup
+     * @return
+     */
+    int genererInt(int borneInf, int borneSup){
+        Random random = new Random();
+        int nb;
+        nb = borneInf+random.nextInt(borneSup-borneInf);
+        return nb;
+    }
+
+    /** random key generator*/
+    public Cles randomKey() {
+        Cles cle = CLEAIR;
+        if (genererInt(1, 5) == 1) {
+            cle = CLEAIR;
+        } else if (genererInt(1, 5) == 2) {
+            cle = CLEEAU;
+        } else if (genererInt(1, 5) == 3) {
+            cle = CLEFEU;
+        } else if (genererInt(1, 5) == 4) {
+            cle = CLETERRE;
+        } else if (genererInt(1, 5) == 5){
+            cle = null;
+        }
+        return cle;
+    }
+
+    public void ajouterCle(){
+        if (randomKey() == CLEAIR) {
+            this.keys.addKey(randomKey());
+            System.out.print(" Ajout de Cle air à l'inventaire\n ");
+        } else if (randomKey() == CLEFEU) {
+            this.keys.addKey(randomKey());
+            System.out.print(" Ajout de Cle feu à l'inventaire\n ");
+        } else if (randomKey() == CLEEAU) {
+            this.keys.addKey(randomKey());
+            System.out.print(" Ajout de Cle eau à l'inventaire\n ");
+        } else if (randomKey() == CLETERRE) {
+            this.keys.addKey(randomKey());
+            System.out.print(" Ajout de Cle terre à l'inventaire\n ");
+        } else if (randomKey() == null) {
+            System.out.print(" Rien désolé...\n ");
+        }
     }
 
     /** Assecher une case sur lequel le personnage est ou adjacant */

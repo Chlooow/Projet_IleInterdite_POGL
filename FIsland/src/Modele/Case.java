@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import java.awt.*;
+import java.util.Observable;
 import javax.swing.*;
 
 public class Case extends JLabel {
@@ -68,6 +69,7 @@ public class Case extends JLabel {
         }
 
         this.draw(Couleurs.fromState(etat));
+        //Observable.notifyObservers();
     }
 
     /** methode qui asseche */

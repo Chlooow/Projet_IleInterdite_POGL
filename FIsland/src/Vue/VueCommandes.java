@@ -33,8 +33,8 @@ public class VueCommandes extends JPanel {
         };*/
         this.add(dry);
 
-        // Bouton recuperation
-        JButton recup = new JButton(" Recuperer ");
+        // Bouton recuperation d'artefact
+        JButton recup = new JButton(" Recuperer Artefact ");
 
         /*recup.addActionListener((ActionEvent e) -> {
             // Action quand le bouton recuperer est cliqué
