@@ -10,7 +10,7 @@ public class JoueurTest {
 
     public void JoueurTests(){
 
-        Case c = new Case(modele, 6, 7);
+        Case c = new Case(modele, 6, 7,6 ,7);
         Joueur j = new Joueur("Cheima", Color.GREEN, c);
         assertEquals("Cheima", j.getNomJoueur());
         //changement manuel du nom
@@ -20,7 +20,7 @@ public class JoueurTest {
         assertEquals(Color.GREEN, j.getCouleur());
         j.setCouleur(Color.RED);
         assertEquals(Color.RED, j.getCouleur());
-       // assertEquals(6, j.getPositionX());
+        //assertEquals(6, j.getPositionX());
         //assertEquals(7, j.getPositionY());
         assertEquals(0, j.getActions());
     }

@@ -1,36 +1,31 @@
 package Modele;
 
 import java.util.ArrayList;
-import java.util.Random;
-
-import static Modele.Cles.*;
 
 public class Inventaire {
 
     // Attribut
-    private ArrayList<ElementArtefact> artefacts;
-    private ArrayList<Cles> cles;
+    protected ArrayList<ElementArtefact> invArtJoueur;
+    protected ArrayList<Cles> invKeyJoueur;
     private CModele modele;
 
     // Constructeur
     public Inventaire(){
-        this.artefacts = new ArrayList<ElementArtefact>();
-        this.cles = new ArrayList<Cles>();
+        this.invArtJoueur = new ArrayList<ElementArtefact>();
+        this.invKeyJoueur = new ArrayList<Cles>();
     }
 
     // Getter & Setter
     public ArrayList<Cles> getCles() {
-        return cles;
+        return invKeyJoueur;
     }
     public ArrayList<ElementArtefact> getArtefacts() {
-        return artefacts;
+        return invArtJoueur;
     }
 
-
     // Methodes
-
     public void ajouterArtefact(ElementArtefact arte) {
-        this.artefacts.add(arte);
+        this.invArtJoueur.add(arte);
     }
 
     // Reset l'inventaire vide
@@ -41,11 +36,13 @@ public class Inventaire {
     }
 
     public void retirerCle(ElementArtefact elementArtefact){
-        cles.removeIf(cle -> {
+        invKeyJoueur.removeIf(cle -> {
             return cle.getElementOfKey().equals(elementArtefact);
         });
     }
 
-
-
+    public ArrayList<Cles> addKey(Cles k) {
+        this.invKeyJoueur.add(k);
+        return invKeyJoueur;
+    }
 }

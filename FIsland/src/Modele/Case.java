@@ -1,47 +1,42 @@
 package Modele;
 
-import Modele.CModele;
-import Modele.ElementArtefact;
-import Modele.WaterState;
-
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
+import java.awt.Color;
 import java.awt.*;
-import java.util.Observable;
 import javax.swing.*;
 
+import static Modele.Couleurs.*;
+
 public class Case extends JLabel {
-    // Attributs
-    // Enum
+
     private WaterState etat;
     private WaterState nextState;
-    private ElementArtefact artefact;
-
+    protected ElementArtefact artefact;
+    protected int ligne, colonne;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
-
     private CModele modele;
-    private final int width, height;
-
-    protected ElementArtefact element;
+    protected final int width, height;
 
     private Color color = Couleurs.COLOR_NORMAL;
 
-    // Constructeurs
-    public Case(CModele modele, int width, int height) {
+    // Constructeur
+    public Case(CModele modele, int width, int height, int ligne , int colonne) {
         this.modele = modele;
         this.etat = WaterState.Normal;
         this.width = width;
         this.height = height;
+        this.ligne = ligne;
+        this.colonne = colonne;
 
         setPreferredSize(new Dimension(width, height));
         draw();
     }
-    // Getter & Setter
     public WaterState getEtat() { return etat; }
-    public void setEtat(WaterState state){ this.etat = state; }
 
+    public void setEtat(WaterState state){ this.etat = state; }
     @Override
+
     public int getWidth() {
         return width;
     }
@@ -50,8 +45,6 @@ public class Case extends JLabel {
         return height;
     }
 
-    // Methodes
-
     public void etatSuivant(WaterState etat){
         switch (etat) {
             case Normal -> nextState = WaterState.Flooded;
@@ -59,7 +52,7 @@ public class Case extends JLabel {
         }
     }
 
-    /** HasArtefact */
+    /**HasArtefact*/
     public boolean hasArtefact(){ return artefact !=null; }
 
     public void addArtefact(ElementArtefact element){
@@ -146,8 +139,17 @@ public class Case extends JLabel {
                 graphics.setColor(Couleurs.getPlayerColor(joueurs.get(i).getIdJoueur()));
                 int offset = joueurs.get(i).getIdJoueur()-1;
                 graphics.fillRect( 1 + (offset * 14), 1, 14, 14);
-
             }
+        }
+        if(artefact != null){
+            switch (artefact){
+                case EAU -> graphics.setColor(COLOR_EAU);
+                case AIR -> graphics.setColor(COLOR_AIR);
+                case FEU -> graphics.setColor(COLOR_FEU);
+                case TERRE -> graphics.setColor(COLOR_TERRE);
+            }
+
+            graphics.fillRect( 1 + 14, 1, 14, 14);
         }
 
         this.setIcon(new ImageIcon(img));

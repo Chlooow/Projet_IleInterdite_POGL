@@ -25,23 +25,48 @@ public class VueCommandes extends JPanel {
         JButton finDeTour = new JButton("Fin de Tour");
         this.add(finDeTour);
 
-        // Bouton d'assèchement
-        JButton dry = new JButton(" dry case ");
-        /*dry.addActionListener((ActionEvent e) -> {
-            // Action quand le bouton assecher est cliqué
-            // TODO
-            //asseche();
-        };*/
-        this.add(dry);
+        // Boutons d'assèchement
+        JButton dryRight = new JButton(" dry right ");
+        JButton dryLeft = new JButton(" dry left ");
+        JButton dryUp = new JButton(" dry up ");
+        JButton dryDown = new JButton(" dry down ");
+
+        dryRight.addActionListener((ActionEvent e) -> {
+            // Action quand le bouton dry up est cliqué
+            modele.assechement(Direction.RIGHT);
+        });
+        dryLeft.addActionListener((ActionEvent e) -> {
+            // Action quand le bouton dry up est cliqué
+            modele.assechement(Direction.LEFT);
+        });
+        dryUp.addActionListener((ActionEvent e) -> {
+            // Action quand le bouton dry up est cliqué
+            modele.assechement(Direction.UP);
+        });
+        dryDown.addActionListener((ActionEvent e) -> {
+            // Action quand le bouton dry up est cliqué
+            modele.assechement(Direction.DOWN);
+        });
+
+        this.add(dryRight);
+        this.add(dryLeft);
+        this.add(dryUp);
+        this.add(dryDown);
+
+
+
+
+
+
 
         // Bouton recuperation d'artefact
         JButton recup = new JButton(" Recuperer Artefact ");
 
-        /*recup.addActionListener((ActionEvent e) -> {
+        recup.addActionListener((ActionEvent e) -> {
             // Action quand le bouton recuperer est cliqué
             // TODO
-            //recuperer();
-        };*/
+            modele.recupArtefact();
+        });
         this.add(recup);
 
         // Bouton de Sac de sable
@@ -56,7 +81,7 @@ public class VueCommandes extends JPanel {
             System.out.print("Choisissez un y : ");
             int casY = input.nextInt();
             Case cas1 = modele.getCase(casX, casY);
-            modele.sacDeSable(cas1);
+            cas1.asseche();
         });
         this.add(sacDeSable);
         // Bouton de Heliport
