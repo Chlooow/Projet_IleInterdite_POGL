@@ -24,12 +24,37 @@ Pour cela, nous avons décidé de nous mettre en binôme et ainsi répartir le t
 **Chloe** : Partie 0 (creation d'un squelette cohérent), Partie 1, un peu de la partie 3 et 4
 Partie 0 : Création d'un squelette/ Interface graphique à utiliser sur une base de Conway
 Partie 1 : modele de l'ile, les états de l'ile, bouton fin de tour avec inondation
-Partie 3 : mise en place des artefacts, étendre le bouton "Fin de tour" pour que l'utilisateur recoive ou pas une clé aleatoirement.
+Partie 3 : mise en place des artefacts et l'heliporte, étendre le bouton "Fin de tour" pour que l'utilisateur recoive ou pas une clé aleatoirement.
+methode de pertes
 Partie 4 : Actions spéciales : Sac de sable
 
+**Cheima** : Partie 2, Partie 3, UML, Test Junit
+Partie 0 : Interface graphique avec les couleurs des perso/artefact
+Partie 2 : Déplacements, ajout des personnages, assecher une case, changement de tour avec 3 actions a effectuer, boutons de deplacement et dry case
+Partie 3 :  recuperer un artefact, bouton recuperer
 
-**Cheima** : Partie 2, Partie 3, UML
-
+### Architecture 
+**Main** : classe principal
+**Music** : contient les elements pour le son
+**Package Controleur** :
+- Controleur : controle des actionListeners...
+**Package Modele** : les elements pour habiller le jeu
+- Case
+- Cles
+- Cmodele
+- Couleurs
+- Direction (E)
+- ElementArtefact (E)
+- Inventaire
+- Joueur
+- WaterState (E)
+**Package Observer** : pour update le jeu
+- Observer (I)
+- Obsevable
+**Package Vue** : vue sur les elements
+- VueGrilles
+- VueCommandes
+- CVue
 
 ## Outils utilisés
 
