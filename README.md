@@ -22,16 +22,29 @@ Pour cela, nous avons décidé de nous mettre en binôme et ainsi répartir le t
 ## Repartition
 
 **Chloe** : Partie 0 (creation d'un squelette cohérent), Partie 1, un peu de la partie 3 et 4
+Partie 0 : Création d'un squelette/ Interface graphique à utiliser sur une base de Conway
+Partie 1 : modele de l'ile, les états de l'ile, bouton fin de tour avec inondation
+Partie 3 : mise en place des artefacts, étendre le bouton "Fin de tour" pour que l'utilisateur recoive ou pas une clé aleatoirement.
+Partie 4 : Actions spéciales : Sac de sable
+
 
 **Cheima** : Partie 2, Partie 3, UML
+
 
 ## Outils utilisés
 
 - IntelliJ avec JDK Java 16/17
 - 2 Github (1 avec des projets brouillons/poubelles, copie cloud et 1 pour le rendu final)
-- TP/Ressources de POGL, GOOGLE, IPO (3eme semestre)
+- TP/Ressources de POGL, GOOGLE, IPO (3eme semestre) avec Alice Jacquot
+- Pour la music, nous avons pris un bout de code et également regardé des videos youtubes
+- https://youtu.be/3q4f6I5zi2w
+- https://openclassrooms.com/forum/sujet/mettre-du-son-dans-un-programme
 - Discord
 - Codimd pour les traces écrites (todo list)
+
+Nous avons utilisé une architecture de type MVC qu'on retrouve dans le Conway
+Nous avons mis des vues les commandes la vue de la grille, dans modeles tous les élements de l'ile avec les artefacts, les joueurs...Etc
+dans le controler
 
 ## Difficultés rencontrées
 
