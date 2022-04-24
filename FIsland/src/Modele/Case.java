@@ -55,8 +55,36 @@ public class Case extends JLabel {
     public void etatSuivant(WaterState etat){
         switch (etat) {
             case Normal -> nextState = WaterState.Flooded;
-            case Flooded -> nextState = WaterState.Submerged;
-            case Submerged -> nextState = WaterState.Submerged;
+            case Flooded, Submerged -> nextState = WaterState.Submerged;
+        }
+    }
+
+    /** HasArtefact */
+    public boolean hasArtefact(){ return artefact !=null; }
+
+    public void addArtefact(ElementArtefact element){
+        artefact = element;
+    }
+
+    public void removeArtefact(){
+        artefact = null;
+    }
+
+    /** verifie si l'heliport est submergé */
+    // une des conditions pour perdre
+    public boolean subHeliport(){
+        if(this.modele.spawn.equals(WaterState.Submerged)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean playerDrowned(Joueur j) {
+        if (j.getPosition().getEtat().equals(WaterState.Submerged)) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -112,6 +140,15 @@ public class Case extends JLabel {
         graphics.setColor(Color.BLACK);
         graphics.setStroke(new BasicStroke(2.0f));
         graphics.drawRect(1, 1, width-3, height-2);
+
+        if (!joueurs.isEmpty()) {
+            for (int i = 0; i != joueurs.size(); i++) {
+                graphics.setColor(Couleurs.getPlayerColor(joueurs.get(i).getIdJoueur()));
+                int offset = joueurs.get(i).getIdJoueur()-1;
+                graphics.fillRect( 1 + (offset * 14), 1, 14, 14);
+
+            }
+        }
 
         this.setIcon(new ImageIcon(img));
     }

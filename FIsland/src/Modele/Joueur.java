@@ -1,7 +1,6 @@
 package Modele;
 
 import java.awt.*;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class Joueur {
@@ -9,9 +8,15 @@ public class Joueur {
     // Attribut
     private String nomJoueur;
     private CModele modele;
-    private ArrayList<Inventaire> invJoueur;
+    private ArrayList<Cles> invKeyJoueur;
+    // il manquait l'inventaire d'artefact
+    // faire une hashmap c'est se compliquer la vie et on ne peu faire de double tableau du coup
+    // pour prendre un art, il faudra faire la methode "roumain" comme dit Amine
+    /* TODO : tu récupe la clé dans l'inventaire de cle du joueur, puis tu le compare si il ont le même elem
+     alors, addArt to the Inventaire de Artefacts*/
+    private ArrayList<ElementArtefact> invArtJoueur;
     private int idJoueur;
-    private int id;
+    private static int id = 0;
     private Color couleur;
     private Case position;
     private int actions;
@@ -19,10 +24,11 @@ public class Joueur {
     // Constructeur
     public Joueur(String nom, Color c, Case cas) {
         this.couleur = c;
-        this.id = idJoueur++;
+        this.idJoueur = ++id;
         this.nomJoueur = nom;
         this.position = cas; // il faut l'initialiser au même stade de que l'heliport
-        this.invJoueur = new ArrayList<Inventaire>();
+        this.invKeyJoueur = new ArrayList<Cles>();
+        this.invArtJoueur = new ArrayList<ElementArtefact>();
         this.actions = 0;
     }
 
@@ -44,20 +50,16 @@ public class Joueur {
         this.modele = modele;
     }
 
-    public ArrayList<Inventaire> getInvJoueur() {
-        return invJoueur;
+    public ArrayList<Cles> getInvKeyJoueur() {
+        return invKeyJoueur;
     }
 
-    public void setInvJoueur(ArrayList<Inventaire> invJoueur) {
+    /*public void setInvJoueur(ArrayList<Cles> invJoueur) {
         this.invJoueur = invJoueur;
-    }
+    }*/
 
     public int getIdJoueur() {
         return idJoueur;
-    }
-
-    public void setIdJoueur(int idJoueur) {
-        this.idJoueur = idJoueur;
     }
 
     public Color getCouleur() {
@@ -95,14 +97,11 @@ public class Joueur {
     // Methodes
 
     // add cle
-    /*public ArrayList<Inventaire> addKeyInInv(Cle keys) {
 
-    }*/
     // add artefact
-    // remove artefact
-    // remove Cle
 
     // isDrowned
+    // verifier si un joueur se noie
     /*public boolean isDrowned(Joueur j, Case cas) {
         if(j.getPositionY().equals(cas.getY()) && j.getPositionX().equals(cas.getX())){
             return true;
@@ -117,6 +116,5 @@ public class Joueur {
     }
 
     // Assecher une case
-
 
 }

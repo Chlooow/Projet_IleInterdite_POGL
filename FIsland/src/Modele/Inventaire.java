@@ -47,8 +47,5 @@ public class Inventaire {
     }
 
 
-    public ArrayList<Cles> addKey(Cles k) {
-        this.cles.add(k);
-        return cles;
-    }
+
 }

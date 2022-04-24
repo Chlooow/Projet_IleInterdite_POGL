@@ -1,7 +1,6 @@
 package Modele;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
@@ -17,12 +16,16 @@ public class CModele extends Observable {
     public static final int hauteur = 6;
     public static final int largeur = 6;
     private Case[][] island;
-    //private ArrayList<Joueur> players;
+    private ArrayList<Joueur> players = new ArrayList<>();
     private Joueur player;
     private Color color;
     private Inventaire keys;
     //private Cles key;
     private boolean helicopter;
+
+    private int currentJoueur = 0;
+    private int nbAction = 0;
+    Case spawn;
 
     // Constructeur
 
@@ -50,30 +53,26 @@ public class CModele extends Observable {
 
         // Heliport
         this.helicopter = true;
-        this.randomCase().draw(Couleurs.COLOR_Heli);
+        island[2][2].draw(Couleurs.COLOR_Heli);
 
         // Artefact
         this.setArtefact();
 
-        // Cles
-        //this.setKey();
-        // Ici je me suis trompé, les clés ne sont pas sur le plateau de jeu c'est quand on clique
-        this.keys = new Inventaire();
-
+        // Case de depart
+        spawn = island[2][2];
     }
 
     // Getter & Setter
     public Case getCase(int x, int y) {
         return island[x][y];
     }
-
+    public Case getSpawn() {
+        return spawn;
+    }
     public Case[][] getCase() {
         return island;
     }
-
-    /*public Cles getKey() {
-        return key;
-    }*/
+    public Joueur getJoueur() { return players.get(this.currentJoueur); }
 
     /** mettre les artefacts */
     public void setArtefact(){
@@ -82,15 +81,13 @@ public class CModele extends Observable {
         this.randomCase().draw(Couleurs.COLOR_FEU);
         this.randomCase().draw(Couleurs.COLOR_EAU);
     }
-    /** mettre les cles */
-    /*public void setKey() {
-        this.randomCase().draw(Couleurs.COLOR_TERRE_KEY);
-        this.randomCase().draw(Couleurs.COLOR_AIR_KEY);
-        this.randomCase().draw(Couleurs.COLOR_FEU_KEY);
-        this.randomCase().draw(Couleurs.COLOR_EAU_KEY);
-    }*/
 
     // Methode
+    public void ajouteJoueur(Joueur j) {
+        players.add(j);
+        spawn.ajouteJoueur(j);
+    }
+
     /** assecher une case voulu */
     public void sacDeSable(Case c){
         if (c.getEtat() != WaterState.Submerged) {
@@ -101,7 +98,6 @@ public class CModele extends Observable {
             System.out.print(" Pas possible d'assecher cette case, réessayez");
         }
     }
-
 
     /** Innonder une case aleatoirement */
     public void randomFlood(CModele modele) {
@@ -136,33 +132,35 @@ public class CModele extends Observable {
 
     /** random key generator*/
     public Cles randomKey() {
-        Cles cle = CLEAIR;
-        if (genererInt(1, 5) == 1) {
-            cle = CLEAIR;
-        } else if (genererInt(1, 5) == 2) {
-            cle = CLEEAU;
-        } else if (genererInt(1, 5) == 3) {
-            cle = CLEFEU;
-        } else if (genererInt(1, 5) == 4) {
-            cle = CLETERRE;
-        } else if (genererInt(1, 5) == 5){
-            cle = null;
+        Cles cle = null;
+        int rand = genererInt(0, 3);
+        switch (rand) {
+            case 0 : cle = CLEAIR;
+            break;
+            case 1 : cle = CLETERRE;
+            break;
+            case 2 : cle = CLEEAU;
+            break;
+            case 3 : cle = CLEFEU;
+            break;
         }
         return cle;
     }
 
-    public void ajouterCle(){
+    /** ajouter une cle à l'inventaire du joueur*/
+
+    public void ajouterCle(Joueur i){
         if (randomKey() == CLEAIR) {
-            this.keys.addKey(randomKey());
+            i.getInvKeyJoueur().add(randomKey());
             System.out.print(" Ajout de Cle air à l'inventaire\n ");
         } else if (randomKey() == CLEFEU) {
-            this.keys.addKey(randomKey());
+            i.getInvKeyJoueur().add(randomKey());
             System.out.print(" Ajout de Cle feu à l'inventaire\n ");
         } else if (randomKey() == CLEEAU) {
-            this.keys.addKey(randomKey());
+            i.getInvKeyJoueur().add(randomKey());
             System.out.print(" Ajout de Cle eau à l'inventaire\n ");
         } else if (randomKey() == CLETERRE) {
-            this.keys.addKey(randomKey());
+            i.getInvKeyJoueur().add(randomKey());
             System.out.print(" Ajout de Cle terre à l'inventaire\n ");
         } else if (randomKey() == null) {
             System.out.print(" Rien désolé...\n ");
@@ -171,10 +169,6 @@ public class CModele extends Observable {
 
     /** Assecher une case sur lequel le personnage est ou adjacant */
 
-
-    // Is Player on the field
-    /*public boolean isAlive(ArrayList<Joueur> j, Case cas) {
-    }*/
 
     /* protected int compteVoisines(int x, int y) {
         int res=0;
@@ -185,6 +179,7 @@ public class CModele extends Observable {
         }
         return (res - ((island[x][y].etat)?1:0)); */
 
+
     /**
      * Renvoie une liste contenant les cases voisines disponibles pour un déplacement
      *
@@ -192,6 +187,7 @@ public class CModele extends Observable {
      *
      * @return Une ArrayList
      */
+    // on garde on sait jamais
     public ArrayList<Case> getNeighbour(Case pos) {
         ArrayList<Case> res = new ArrayList<>();
 
@@ -220,6 +216,74 @@ public class CModele extends Observable {
         return res;
     }
 
+    public void update() {
+        for (Case[] c : island) {
+            for (Case cc : c) {
+                cc.draw();
+            }
+        }
+    }
+
+
+    /** droit de faire 3 actions */
+    public boolean nextAction() {
+        nbAction++;
+
+        if (nbAction >= 3) {
+            nbAction = 0;
+            currentJoueur++;
+
+            randomFlood(this);
+            randomFlood(this);
+            randomFlood(this);
+
+            if (currentJoueur >= players.size()) {
+                currentJoueur = 0;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Deplacement des pers
+     * @param dir
+     */
+
+    public void move(Direction dir) {
+        //System.out.println("move called");
+        for (int i = 0; i < island.length; i++) {
+            for (int j = 0; j < island[i].length; j++) {
+                if (island[i][j] == players.get(currentJoueur).getPosition()) {
+                    int offi = 0, offj = 0;
+
+                    switch (dir) {
+                        case UP -> offi = -1;
+                        case DOWN -> offi = 1;
+                        case LEFT -> offj = -1;
+                        case RIGHT -> offj = 1;
+                    }
+
+                    if (i + offi < island.length && i + offi >= 0 && j + offj < island[i].length && j + offj >= 0) {
+                        Case next = island[i+offi][j+offj];
+                        Joueur joueur = players.get(currentJoueur);
+
+                        joueur.getPosition().removeJoueur(joueur);
+                        joueur.getPosition().draw();
+                        joueur.setPosition(next);
+                        next.ajouteJoueur(joueur);
+                        next.draw();
+                    } else {
+                        System.err.println("Erreur: déplacement impossible");
+                        return;
+                    }
+
+                    nextAction();
+                    return;
+                }
+            }
+        }
+    }
     /// # On récupère les cases autour de notre joueur
     /// listeCase = model.getNeighbour(joueur.getPosition);
     /// # user choisis une case dans listeCase
@@ -231,3 +295,9 @@ public class CModele extends Observable {
     /// # On ajoute le joueur dans la nouvelle case
     /// listeCase[choixUser].addJoueur(joueur);
 }
+
+/*au moment de creer les artefacts
+* recup une case au hasard et donner un artefact au hasard
+* 
+*
+* */

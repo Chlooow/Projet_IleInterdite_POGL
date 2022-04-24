@@ -3,6 +3,7 @@ package Vue;
 import Controleur.Controleur;
 import Modele.CModele;
 import Modele.Case;
+import Modele.Direction;
 
 import java.awt.event.*;
 import java.util.Scanner;
@@ -16,7 +17,6 @@ public class VueCommandes extends JPanel {
     private CModele modele;
     private int height = 20;
     private int width = 100;
-
 
     // Constructeur
     public VueCommandes(CModele modele) {
@@ -49,6 +49,7 @@ public class VueCommandes extends JPanel {
         sacDeSable.addActionListener((ActionEvent e) -> {
             // Action quand le bouton asseche une zone voulu est cliqué
             // TODO
+            System.out.print(" Choisissez une case que vous voulez assecher\n");
             Scanner input = new Scanner(System.in);
             System.out.print("Choisissez un x : ");
             int casX = input.nextInt();
@@ -58,7 +59,21 @@ public class VueCommandes extends JPanel {
             modele.sacDeSable(cas1);
         });
         this.add(sacDeSable);
-
+        // Bouton de Heliport
+        JButton transport = new JButton("utiliser l'helicoptère");
+        transport.addActionListener((ActionEvent e) -> {
+            // Action quand le bouton helicoptere est clique
+            // TODO
+            Scanner input = new Scanner(System.in);
+            System.out.print(" Choisissez une case ou vous voulez aller \n");
+            System.out.print("Choisissez un x : \n");
+            int casX = input.nextInt();
+            System.out.print("Choisissez un y : \n");
+            int casY = input.nextInt();
+            Case cas1 = modele.getCase(casX, casY);
+            // fonction qui enleve l'héliport de la case et la met sur une nouvelle choisis
+        });
+        this.add(transport);
         // Bouton de deplacements
         JButton right = new JButton("right");
         JButton left = new JButton("left");
@@ -68,21 +83,25 @@ public class VueCommandes extends JPanel {
         right.addActionListener((ActionEvent e) -> {
             // TODO
             // Action quand le bouton right est cliqué
+            modele.move(Direction.RIGHT);
         });
 
         left.addActionListener((ActionEvent e) -> {
             // TODO
             // Action quand le bouton left est cliqué
+            modele.move(Direction.LEFT);
         });
 
         up.addActionListener((ActionEvent e) -> {
             // TODO
             // Action quand le bouton up est cliqué
+            modele.move(Direction.UP);
         });
 
         down.addActionListener((ActionEvent e) -> {
             // TODO
             // Action quand le bouton down est cliqué
+            modele.move(Direction.DOWN);
         });
 
         this.add(right);

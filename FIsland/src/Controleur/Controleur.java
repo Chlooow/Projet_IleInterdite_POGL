@@ -14,11 +14,13 @@ public class Controleur implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         // Inonder une case au hasard
-       modele.randomFlood(modele);
-       modele.randomFlood(modele);
-       modele.randomFlood(modele);
+       //modele.randomFlood(modele);
+       //modele.randomFlood(modele);
+       //modele.randomFlood(modele);
+
+        while (!modele.nextAction());
        // cle au hasard
-       modele.ajouterCle();
+       modele.ajouterCle(modele.getJoueur());
     }
 }
 
