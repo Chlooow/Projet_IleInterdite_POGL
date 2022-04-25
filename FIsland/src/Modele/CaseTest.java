@@ -8,7 +8,7 @@ public class CaseTest {
     @Test
     public void CaseTests(){
 
-        /*Case c = new Case(modele, 6, 7);
+        Case c = new Case(modele, 6, 7, 6, 7);
 
         //on teste les coordonnees de la case dans la grille
         assertEquals(6, c.getX());
@@ -28,5 +28,5 @@ public class CaseTest {
         //on teste la gestion manuelle du niveau de l'eau
         c.setEtat(WaterState.Submerged);
         assertEquals(WaterState.Submerged, c.getEtat());
-    }*/}
+    }
 }
